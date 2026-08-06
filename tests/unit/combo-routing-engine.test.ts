@@ -187,6 +187,14 @@ test("getComboFromData and getComboModelsFromData resolve combos from array and 
   assert.deepEqual(models, ["openai/gpt-4o-mini", "claude/sonnet"]);
 });
 
+test("getComboModelsFromData strips context-window tags before matching a combo", () => {
+  const combos = [{ name: "alpha", models: ["openai/gpt-4o-mini"] }];
+
+  assert.deepEqual(getComboModelsFromData("alpha[500k]", combos), ["openai/gpt-4o-mini"]);
+  assert.deepEqual(getComboModelsFromData("alpha[1M]", combos), ["openai/gpt-4o-mini"]);
+  assert.equal(getComboModelsFromData("alpha[beta]", combos), null);
+});
+
 test("validateComboDAG rejects circular references and resolveNestedComboModels expands nested combos", () => {
   const combos = [
     { name: "root", models: ["child-a", "openai/gpt-4o-mini"] },
@@ -3137,7 +3145,7 @@ test("#3587 reasoning model gets max_tokens buffer applied", async () => {
   assert.equal(result.ok, true);
   assert.equal(bodies.length, 1, "should have called handleSingleModel once");
   // #9507: buffer never enlarges an explicit client max_tokens; pass-through 4096.
-  assert.equal(bodies[0].max_tokens, 4096, "max_tokens forwarded verbatim for reasoning model (#9507)");
+  assert.equal(bodies[0].max_tokens, 4096, "max_tokens forwarded verbatim (#9507)");
 });
 
 test("#3587 reasoning buffer preserves max_tokens when the full buffer exceeds model cap", async () => {
