@@ -1,0 +1,48 @@
+RAILWAY FIX: Replace these 7 lines in the OmniRoute Dockerfile
+(GitHub → toktokuk789-hue/OmniRoute → Dockerfile → Edit pencil icon)
+
+FIND → REPLACE each line:
+
+1. Line 11:
+FIND:    --mount=type=cache,id=apt-cache,target=/var/cache/apt,sharing=locked \
+REPLACE: --mount=type=cache,id=omniroute-apt-cache,target=/var/cache/apt,sharing=locked \
+
+2. Line 12 (same RUN block):
+FIND:    --mount=type=cache,id=apt-lists,target=/var/lib/apt/lists,sharing=locked \
+REPLACE: --mount=type=cache,id=omniroute-apt-lists,target=/var/lib/apt/lists,sharing=locked \
+
+3. Line 32 (builder apt):
+FIND:    --mount=type=cache,id=apt-cache,target=/var/cache/apt,sharing=locked \
+REPLACE: --mount=type=cache,id=omniroute-apt-cache,target=/var/cache/apt,sharing=locked \
+
+4. Line 33:
+FIND:    --mount=type=cache,id=apt-lists,target=/var/lib/apt/lists,sharing=locked \
+REPLACE: --mount=type=cache,id=omniroute-apt-lists,target=/var/lib/apt/lists,sharing=locked \
+
+5. Line 79 (npm ci):
+FIND:    --mount=type=cache,id=npm-cache,target=/root/.npm \
+REPLACE: --mount=type=cache,id=omniroute-npm-cache,target=/root/.npm \
+
+6. Line 121 (next build):
+FIND:    --mount=type=cache,id=next-cache,target=/app/.build/next/cache \
+REPLACE: --mount=type=cache,id=omniroute-next-cache,target=/app/.build/next/cache \
+
+7. Line 223 (runner-web apt):
+FIND:    --mount=type=cache,id=apt-cache,target=/var/cache/apt,sharing=locked \
+REPLACE: --mount=type=cache,id=omniroute-apt-cache,target=/var/cache/apt,sharing=locked \
+
+8. Line 224:
+FIND:    --mount=type=cache,id=apt-lists,target=/var/lib/apt/lists,sharing=locked \
+REPLACE: --mount=type=cache,id=omniroute-apt-lists,target=/var/lib/apt/lists,sharing=locked \
+
+9. Line 240 (runner-cli apt):
+FIND:    --mount=type=cache,id=apt-cache,target=/var/cache/apt,sharing=locked \
+REPLACE: --mount=type=cache,id=omniroute-apt-cache,target=/var/cache/apt,sharing=locked \
+
+10. Line 241:
+FIND:    --mount=type=cache,id=apt-lists,target=/var/lib/apt/lists,sharing=locked \
+REPLACE: --mount=type=cache,id=omniroute-apt-lists,target=/var/lib/apt/lists,sharing=locked \
+
+11. Line 248 (runner-cli npm):
+FIND:    --mount=type=cache,id=npm-cache,target=/root/.npm \
+REPLACE: --mount=type=cache,id=omniroute-npm-cache,target=/root/.npm \
